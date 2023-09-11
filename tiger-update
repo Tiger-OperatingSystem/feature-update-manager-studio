@@ -11,11 +11,11 @@ function webget(){
  wget  "${1}" 2>&1 | sed -u "${regexp}"
 }
 
-mensagem=$(wget -O - https://raw.githubusercontent.com/Tiger-OperatingSystem/feature-update-manager/main/message.txt | sed 's|^|    - |g')
+mensagem=$(wget -O - https://raw.githubusercontent.com/Tiger-OperatingSystem/feature-update-manager-studio/main/message.txt | sed 's|^|    - |g')
 [ ! "${?}" = "0" ] && exit # Sem internet
 
 [ -f "/var/tiger-update/version" ] && {
-  online=$(wget -q "https://github.com/Tiger-OperatingSystem/feature-update-manager/releases/download/continuous/CURRENT" -O -)
+  online=$(wget -q "https://github.com/Tiger-OperatingSystem/feature-update-manager-studio/releases/download/continuous/CURRENT" -O -)
   [ ! "${?}" = "0" ] && exit # Sem internet
   
   current=$(cat /var/tiger-update/version)
@@ -70,7 +70,7 @@ done
 
 update_file=$(mktemp --dry-run)
 
-webget "https://github.com/Tiger-OperatingSystem/feature-update-manager/releases/download/continuous/tiger-update-package.tgz" "${update_file}" | progress "Baixando as atualizações"
+webget "https://github.com/Tiger-OperatingSystem/feature-update-manager-studio/releases/download/continuous/tiger-update-package.tgz" "${update_file}" | progress "Baixando as atualizações"
 
 [ ! -f "${update_file}" ] && {
     show-error "Ocorreu um erro :(" "Não foi possível baixar o pacote de atualizações"
